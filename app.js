@@ -7,8 +7,25 @@ const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users.route');
+const session = require('express-session');
+const SESS_NAME = 'sid';
 
 var app = express();
+
+app.use(session({
+  name: SESS_NAME,
+  secret: 'random message', //this is needed for making a session key​
+
+    saveUninitialized: false, //for login sessions set it to false, setting to true means store blank sessions​
+
+    resave: true, ​
+
+    cookie: {
+
+        expires: 600000 //or use maxAge ( takes in milliseconds value)​
+    }
+      
+}))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
